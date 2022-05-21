@@ -253,8 +253,6 @@ class User{
 
     string prompt = "Which aspect do you want to remove on\n1. wing span\n2. antennae length\n3. proboscis length\n4. thorax color\n5. abdomen color\n6. forewing color\n7. hindwing color\n8. stop removing\n";
     int choice = 0;
-    int size;
-    string color;
 
     while(choice != 8){
         choice = input(8, prompt);

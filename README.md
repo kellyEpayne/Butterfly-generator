@@ -5,9 +5,7 @@ This program is a virtual butterfly creator. You start with 4 default butterflie
 I wrote this program to learn C++. I decided to create a random butterfly creator because I thought it would be a good way to introduce myself to classes in this language. The breeding and removing aspects of this program were added so I could learn how this language uses lists.
 
 
-{Provide a link to your YouTube demonstration.  It should be a 4-5 minute demo of the software running and a walkthrough of the code.  Focus should be on sharing what you learned about the language syntax.}
-
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://photos.app.goo.gl/bJwro7R8R1uE5erA7)
 
 # Development Environment
 
