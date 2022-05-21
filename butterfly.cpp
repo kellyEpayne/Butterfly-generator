@@ -260,98 +260,124 @@ class User{
         choice = input(8, prompt);
 
     if (choice < 4){
-            flutter.remove_if(removeInt);
+        removeInt(choice);
         
-    } else if(choice < 8){
-    /*    for(Butterfly butterfly: flutter){
-            flutter.remove_if(removeColor(butterfly, choice));
-        }*/
+    } else if (choice < 8){
+        removeColor(choice);
     }
-    
     }
     }
 
-    static bool removeInt(Butterfly butterfly){
-        int choice = 1;
-        int size;
-        switch (choice)
-        {
-        case 1:
-            size = butterfly.getWingSpan();
-            break;
-        case 2:
-            size = butterfly.getAntennaeLength();
-            break;
-        default:
-            size = butterfly.getProboscisLength();
-        }
-
+    void removeInt(int partChoice){
         //removes butterflies based on size
-        string prompt = "Remove butterflies that are\n1. > greater than number\n2. < less than number\n3. = equal to number";
-        string prompt2 = "What number are we using? (max: 1,000,000)\n ";
-        int choice2 = input(3, prompt);
-        int num = input(1000000, prompt2);
 
-        switch (choice2)
+        string prompt = "Remove butterflies that are\n1. > greater than number\n2. < less than number\n3. = equal to number\n";
+        string prompt2 = "What number are we using? (max: 1,000,000)\n";
+        int choice = input(3, prompt);
+        int num = input(1000000, prompt2);
+        int butterfliesRemoved = 0;
+
+
+        list<Butterfly>::iterator it = flutter.begin();
+        switch (choice)
         {
         case 1:
-            return size > num;         
+            // if butterfly part is greater than number remove butterfly
+            while ( it != flutter.end())
+            {
+                if( partSelectionInt( (*it), partChoice) > num){
+                    it = flutter.erase(it);
+                    butterfliesRemoved++;
+                }else{
+                    it++;
+                }
+            }
+            cout << to_string(butterfliesRemoved) + " Butterflies removed.\n\n";
+            break;
         case 2:
-            return size < num;
+        // if butterfly part is less than number remove butterfly
+            while ( it != flutter.end())
+            {
+                if( partSelectionInt( (*it), partChoice) < num){
+                    it = flutter.erase(it);
+                    butterfliesRemoved++;
+                }else{
+                    it++;
+                }
+            }
+            cout << to_string(butterfliesRemoved) + " Butterflies removed.\n\n";
+            break;
         default:
-            return size == num;
+        // if butterfly part is equal to number remove butterfly
+            while ( it != flutter.end())
+            {
+                if( partSelectionInt( (*it), partChoice) == num){
+                    it = flutter.erase(it);
+                    butterfliesRemoved++;
+                }else{
+                    it++;
+                }
+            }
+            cout << to_string(butterfliesRemoved) + " Butterflies removed.\n\n";
         }
     }
 
-    bool removeColor(Butterfly butterfly, int choice){
-
-        string color;
-        switch (choice)
-        {
-        case 4:
-            color = butterfly.getThoraxColor();
-            break;
-        case 5:
-            color = butterfly.getAbdomenColor();
-            break;
-        case 6:
-            color = butterfly.getForeWingColor();
-            break;
-        default:
-            color = butterfly.getHindWingColor();
-            break;
-        }
-
+    void removeColor(int partChoice){
         //removes butterflies based on color
 
         string colors[10] = {"RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "PURPLE", "PINK", "WHITE", "GRAY", "BLACK"};
-        string prompt = "Which color are we removing?\n1. red\n2. orange\n3. yellow\n4. green\n5. blue\n6. purple\n7. pink\n8. white\n9. gray\n10. black";
+        string prompt = "Which color are we removing?\n1. red\n2. orange\n3. yellow\n4. green\n5. blue\n6. purple\n7. pink\n8. white\n9. gray\n10. black\n";
         int choice = input(10, prompt);
+        int butterfliesRemoved = 0;
 
-        switch (choice)
+        list<Butterfly>:: iterator it = flutter.begin();
+
+        while ( it != flutter.end())
+        {
+            if( partSelectionColor((*it), partChoice) == colors[choice - 1]){
+                it = flutter.erase(it);
+                butterfliesRemoved++;
+            } else{
+                it++;
+            }
+        }
+        cout << to_string(butterfliesRemoved) + " Butterflies removed.\n\n";
+        
+
+    }
+
+    int partSelectionInt(Butterfly butterfly, int partChoice){
+        // Selects the int part of a butterfly and returns it.
+        // This function is ment to be used with the removeInt function
+        // partChoice will be 1-3
+
+        switch (partChoice)
         {
         case 1:
-            return color == colors[0];
+            return butterfly.getWingSpan();
         case 2:
-            return color == colors[1];
-        case 3:
-            return color == colors[2];
-        case 4:
-            return color == colors[3];
-        case 5:
-            return color == colors[4];
-        case 6:
-            return color == colors[5];
-        case 7:
-            return color == colors[6];
-        case 8:
-            return color == colors[7];
-        case 9:
-            return color == colors[8];
+            return butterfly.getAntennaeLength();
         default:
-            return color == colors[9];
+            return butterfly.getProboscisLength();
         }
+    }
 
+    string partSelectionColor(Butterfly butterfly, int partChoice){
+        // Selects the string part of a butterfly and returns it.
+        // This function is ment to be used with the removeColor function
+        // partChoice will be 4-7
+
+        switch (partChoice)
+        {
+        case 1:
+            return butterfly.getThoraxColor();
+        case 2:
+            return butterfly.getAbdomenColor();
+        case 3:
+            return butterfly.getForeWingColor();        
+        default:
+            return butterfly.getHindWingColor();
+        }
     }
 
     private:
@@ -380,7 +406,6 @@ int main(){
       user.breedButterflies();
       break;
   case 3:
-      cout << "Currently not functional";
       user.removeButterfly();
       break;
   case 4:
